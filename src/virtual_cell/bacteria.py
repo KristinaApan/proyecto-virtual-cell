@@ -7,7 +7,7 @@ class Bacteria:
             dry_mass: float,
             age: float,
             atp: float,
-            health: float,
+            stress_level: float,
             alive: bool = True,
 
      ):
@@ -28,5 +28,5 @@ class Bacteria:
 
         self.age = age                    # seconds
         self.atp = atp                    # ATP pool
-        self.healf = health               # 0.0 - 1.0
+        self.stress_level = stress_level            
         self.alive = alive
