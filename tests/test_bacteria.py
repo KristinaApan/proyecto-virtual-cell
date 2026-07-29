@@ -44,3 +44,8 @@ def test_bacteria_creation():
 def test_bacteria_raises_error_for_invalid_species(species):
     with pytest.raises(ValueError):
         make_bacteria(species=species)
+
+
+def test_bacteria_raises_error_when_position_is_not_tuple():
+    with pytest.raises(TypeError):
+        make_bacteria(position=[0.0, 0.0])
