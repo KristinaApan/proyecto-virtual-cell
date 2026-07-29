@@ -99,3 +99,15 @@ def test_bacteria_raises_error_when_age_is_negative(age):
 def test_bacteria_raises_error_when_atp_is_negative(atp):
     with pytest.raises(ValueError):
         make_bacteria(atp=atp)
+
+
+@pytest.mark.parametrize("stress_level", [-0.1, 1.1, 2.0])
+def test_bacteria_raises_error_when_stress_level_is_out_of_range(stress_level):
+    with pytest.raises(ValueError):
+        make_bacteria(stress_level=stress_level)
+ 
+ 
+@pytest.mark.parametrize("stress_level", [0.0, 1.0])
+def test_bacteria_accepts_boundary_stress_level(stress_level):
+    bacteria = make_bacteria(stress_level=stress_level)
+    assert bacteria.stress_level == stress_level
