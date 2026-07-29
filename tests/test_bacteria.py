@@ -10,27 +10,22 @@ import pytest
 from virtual_cell.bacteria import Bacteria
 
 
-def test_bacteria_creation():
+def make_bacteria(**kwargs) -> Bacteria:
+    """Create a valid Bacteria instance with optional overrides."""
+    data = {
+        "species": "E. coli",
+        "position": (0.0, 0.0),
+        "size": 1.0,
+        "dry_mass": 0.5,
+        "age": 0.0,
+        "atp": 100.0,
+        "stress_level": 0.0,
+        "alive": True,
+    }
+    data.update(kwargs)
+    return Bacteria(**data)
 
-    # Arrange
-    species = "E. coli"
-    position = (0.0, 0.0)
-    size = 1.5
-    dry_mass = 0.35
-    age = 0.0
-    atp = 100.0 
-    stress_level = 0.0
 
-    # Act
-    bacteria = Bacteria(
-        species=species,
-        position=position,
-        size=size,
-        dry_mass=dry_mass,
-        age=age,
-        atp=atp,
-        stress_level=stress_level,
-    )
 
     # Assert
     assert bacteria.species == species
