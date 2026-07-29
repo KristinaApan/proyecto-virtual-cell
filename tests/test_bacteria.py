@@ -154,3 +154,18 @@ def test_update_raises_error_when_dt_is_negative():
     with pytest.raises(ValueError):
         bacteria.update(-1.0)
 
+
+@pytest.mark.parametrize(
+    "invalid_dt",
+    [
+        "1.0",
+        None,
+        [],
+        {},
+    ],
+)
+def test_update_raises_type_error_when_dt_is_not_numeric(invalid_dt):
+    bacteria = make_bacteria()
+
+    with pytest.raises(TypeError):
+        bacteria.update(invalid_dt)
