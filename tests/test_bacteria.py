@@ -87,3 +87,9 @@ def test_bacteria_raises_error_when_size_is_not_positive(size):
 def test_bacteria_raises_error_when_dry_mass_is_not_positive(dry_mass):
     with pytest.raises(ValueError):
         make_bacteria(dry_mass=dry_mass)
+
+
+@pytest.mark.parametrize("atp", [-0.1, -10.0])
+def test_bacteria_raises_error_when_atp_is_negative(atp):
+    with pytest.raises(ValueError):
+        make_bacteria(atp=atp)
