@@ -81,4 +81,9 @@ def test_bacteria_raises_error_when_position_contains_non_numeric_values(positio
 def test_bacteria_raises_error_when_size_is_not_positive(size):
     with pytest.raises(ValueError):
         make_bacteria(size=size)
- 
+
+
+@pytest.mark.parametrize("dry_mass", [0.0, -0.1, -5.0])
+def test_bacteria_raises_error_when_dry_mass_is_not_positive(dry_mass):
+    with pytest.raises(ValueError):
+        make_bacteria(dry_mass=dry_mass)
