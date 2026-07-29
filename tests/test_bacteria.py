@@ -1,8 +1,8 @@
 """
 Unit tests for the Bacteria class.
 
-These tests verify that bacterial objects are created correctly
-and that their initial state matches the expected values.
+These tests verify object creation, input validation,
+and the behavior of the update() method.
 """
 
 import pytest
@@ -26,9 +26,13 @@ def make_bacteria(**kwargs) -> Bacteria:
     return Bacteria(**data)
 
 
+# ---------------------------------------------------------------------
+# Creation
+# ---------------------------------------------------------------------
 
 def test_bacteria_creation():
     bacteria = make_bacteria()
+
     assert bacteria.species == "E. coli"
     assert bacteria.position == (0.0, 0.0)
     assert bacteria.size == 1.0
@@ -39,6 +43,9 @@ def test_bacteria_creation():
     assert bacteria.alive is True
 
 
+# ---------------------------------------------------------------------
+# Validation
+# ---------------------------------------------------------------------
 
 @pytest.mark.parametrize("species", ["", " ", "   ", "\t", "\n"])
 def test_bacteria_raises_error_for_invalid_species(species):
@@ -105,34 +112,45 @@ def test_bacteria_raises_error_when_atp_is_negative(atp):
 def test_bacteria_raises_error_when_stress_level_is_out_of_range(stress_level):
     with pytest.raises(ValueError):
         make_bacteria(stress_level=stress_level)
- 
- 
+
+
 @pytest.mark.parametrize("stress_level", [0.0, 1.0])
 def test_bacteria_accepts_boundary_stress_level(stress_level):
     bacteria = make_bacteria(stress_level=stress_level)
     assert bacteria.stress_level == stress_level
 
 
+# ---------------------------------------------------------------------
+# Update
+# ---------------------------------------------------------------------
+
 def test_update_increases_age():
     bacteria = make_bacteria(age=1.0)
+
     bacteria.update(2.5)
+
     assert bacteria.age == 3.5
 
 
 def test_update_with_zero_dt_does_not_change_age():
     bacteria = make_bacteria(age=5.0)
+
     bacteria.update(0.0)
+
     assert bacteria.age == 5.0
 
 
 def test_update_on_dead_bacteria_does_not_change_age():
     bacteria = make_bacteria(age=5.0, alive=False)
+
     bacteria.update(2.0)
+
     assert bacteria.age == 5.0
 
 
 def test_update_raises_error_when_dt_is_negative():
     bacteria = make_bacteria()
+
     with pytest.raises(ValueError):
         bacteria.update(-1.0)
- 
+
