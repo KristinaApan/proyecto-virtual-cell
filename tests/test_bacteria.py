@@ -123,3 +123,10 @@ def test_update_with_zero_dt_does_not_change_age():
     bacteria = make_bacteria(age=5.0)
     bacteria.update(0.0)
     assert bacteria.age == 5.0
+
+
+def test_update_on_dead_bacteria_does_not_change_age():
+    bacteria = make_bacteria(age=5.0, alive=False)
+    bacteria.update(2.0)
+    assert bacteria.age == 5.0
+ 
