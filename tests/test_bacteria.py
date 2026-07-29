@@ -27,15 +27,16 @@ def make_bacteria(**kwargs) -> Bacteria:
 
 
 
-    # Assert
-    assert bacteria.species == species
-    assert bacteria.position == position
-    assert bacteria.size == size
-    assert bacteria.dry_mass == dry_mass
-    assert bacteria.age == age
-    assert bacteria.atp == atp
-    assert bacteria.stress_level == stress_level
-    assert bacteria.alive is True 
+def test_bacteria_creation():
+    bacteria = make_bacteria()
+    assert bacteria.species == "E. coli"
+    assert bacteria.position == (0.0, 0.0)
+    assert bacteria.size == 1.0
+    assert bacteria.dry_mass == 0.5
+    assert bacteria.age == 0.0
+    assert bacteria.atp == 100.0
+    assert bacteria.stress_level == 0.0
+    assert bacteria.alive is True
 
 
 
