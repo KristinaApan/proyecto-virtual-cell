@@ -5,6 +5,8 @@ These tests verify that bacterial objects are created correctly
 and that their initial state matches the expected values.
 """
 
+import pytest
+
 from virtual_cell.bacteria import Bacteria
 
 
@@ -39,3 +41,18 @@ def test_bacteria_creation():
     assert bacteria.atp == atp
     assert bacteria.stress_level == stress_level
     assert bacteria.alive is True 
+
+
+
+def test_bacteria_raises_error_when_species_is_empty():
+    with pytest.raises(ValueError):
+         Bacteria(
+            species="",
+            position=(0.0, 0.0),
+            size=1.0,
+            dry_mass=0.5,
+            age=0.0,
+            atp=100.0,
+            stress_level=0.0,
+            alive=True,
+        )
