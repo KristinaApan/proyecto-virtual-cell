@@ -66,7 +66,10 @@ class Bacteria:
 
 
    def update(self, dt: float) -> None:
-       """Advance the bacterial state by dt units of simulation time."""
+       """Advance the bacterial state by one simulation step."""
+
+       if not isinstance(dt, (int, float)):
+           raise TypeError("dt must be numeric")
 
        if dt < 0:
            raise ValueError("dt cannot be negative")
@@ -77,5 +80,3 @@ class Bacteria:
        self.age += dt
     
 
-
-       
