@@ -111,3 +111,10 @@ def test_bacteria_raises_error_when_stress_level_is_out_of_range(stress_level):
 def test_bacteria_accepts_boundary_stress_level(stress_level):
     bacteria = make_bacteria(stress_level=stress_level)
     assert bacteria.stress_level == stress_level
+
+
+def test_update_increases_age():
+    bacteria = make_bacteria(age=1.0)
+    bacteria.update(2.5)
+    assert bacteria.age == 3.5
+ 
