@@ -89,6 +89,12 @@ def test_bacteria_raises_error_when_dry_mass_is_not_positive(dry_mass):
         make_bacteria(dry_mass=dry_mass)
 
 
+@pytest.mark.parametrize("age", [-0.1, -1.0])
+def test_bacteria_raises_error_when_age_is_negative(age):
+    with pytest.raises(ValueError):
+        make_bacteria(age=age)
+
+
 @pytest.mark.parametrize("atp", [-0.1, -10.0])
 def test_bacteria_raises_error_when_atp_is_negative(atp):
     with pytest.raises(ValueError):
