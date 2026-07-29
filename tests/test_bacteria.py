@@ -75,4 +75,10 @@ def test_bacteria_raises_error_when_position_has_invalid_length(position):
 def test_bacteria_raises_error_when_position_contains_non_numeric_values(position):
     with pytest.raises(TypeError):
         make_bacteria(position=position)
+
+
+@pytest.mark.parametrize("size", [0.0, -1.0, -10.0])
+def test_bacteria_raises_error_when_size_is_not_positive(size):
+    with pytest.raises(ValueError):
+        make_bacteria(size=size)
  
