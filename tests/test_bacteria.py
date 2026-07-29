@@ -129,4 +129,10 @@ def test_update_on_dead_bacteria_does_not_change_age():
     bacteria = make_bacteria(age=5.0, alive=False)
     bacteria.update(2.0)
     assert bacteria.age == 5.0
+
+
+def test_update_raises_error_when_dt_is_negative():
+    bacteria = make_bacteria()
+    with pytest.raises(ValueError):
+        bacteria.update(-1.0)
  
