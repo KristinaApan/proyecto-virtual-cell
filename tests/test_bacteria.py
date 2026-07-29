@@ -44,10 +44,20 @@ def test_bacteria_creation():
 
 
 
-def test_bacteria_raises_error_when_species_is_empty():
+@pytest.mark.parametrize(
+    "species",
+    [
+        "",
+        " ",
+        "   ",
+        "\t",
+        "\n",
+    ],
+)
+def test_bacteria_raises_error_for_invalid_species(species):
     with pytest.raises(ValueError):
-         Bacteria(
-            species="",
+        Bacteria(
+            species=species,
             position=(0.0, 0.0),
             size=1.0,
             dry_mass=0.5,
