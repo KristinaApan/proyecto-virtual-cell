@@ -49,3 +49,16 @@ def test_bacteria_raises_error_for_invalid_species(species):
 def test_bacteria_raises_error_when_position_is_not_tuple():
     with pytest.raises(TypeError):
         make_bacteria(position=[0.0, 0.0])
+
+
+@pytest.mark.parametrize(
+    "position",
+    [
+        (),
+        (0.0,),
+        (0.0, 0.0, 0.0),
+    ],
+)
+def test_bacteria_raises_error_when_position_has_invalid_length(position):
+    with pytest.raises(ValueError):
+        make_bacteria(position=position)
