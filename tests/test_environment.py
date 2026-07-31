@@ -80,3 +80,46 @@ def test_environment_rejects_invalid_ph_value(
 ) ->None:
     with pytest.raises(ValueError):
         Environment(ph=invalid_ph)
+
+
+def test_environment_accepts_custom_volume() -> None:
+    environment = Environment(volume=2.5)
+
+    assert environment.volume == 2.5
+
+
+@pytest.mark.parametrize(
+    "invalid_volume",
+    [
+        "1.0",
+        None,
+        True,
+        False,
+        [],
+        {},
+        (),
+    ],
+)
+def test_environment_rejects_invalid_volume_type(
+    invalid_volume,
+) -> None:
+    with pytest.raises(TypeError):
+        Environment(volume=invalid_volume)
+
+
+@pytest.mark.parametrize(
+    "invalid_volume",
+    [
+        0.0,
+        -1.0,
+        -10.5,
+    ],
+)
+def test_environment_rejects_invalid_volume(
+    invalid_volume,
+) -> None:
+    with pytest.raises(ValueError):
+        Environment(volume=invalid_volume)
+
+
+
