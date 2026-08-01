@@ -77,7 +77,7 @@ def test_environment_rejects_invalid_ph_type(
 )
 def test_environment_rejects_invalid_ph_value(
     invalid_ph,
-) ->None:
+) -> None:
     with pytest.raises(ValueError):
         Environment(ph=invalid_ph)
 
@@ -115,11 +115,114 @@ def test_environment_rejects_invalid_volume_type(
         -10.5,
     ],
 )
-def test_environment_rejects_invalid_volume(
+def test_environment_rejects_invalid_volume_value(
     invalid_volume,
 ) -> None:
     with pytest.raises(ValueError):
         Environment(volume=invalid_volume)
 
 
+def test_environment_accepts_valid_nutrients() -> None:
+    nutrients = {
+        "glucose": 10.0,
+        "oxygen": 8.5,
+    }
 
+    environment = Environment(nutrients=nutrients)
+
+    assert environment.nutrients == nutrients
+
+
+@pytest.mark.parametrize(
+    "invalid_nutrients",
+    [
+        None,
+        [],
+        (),
+        "glucose",
+        10,
+        3.14,
+        True,
+        False,
+    ],
+)
+def test_environment_rejects_invalid_nutrients_type(
+    invalid_nutrients,
+) -> None:
+    with pytest.raises(TypeError):
+        Environment(nutrients=invalid_nutrients)
+
+
+@pytest.mark.parametrize(
+    "invalid_name",
+    [
+        1,
+        3.14,
+        True,
+        None,
+        (),
+    ],
+)
+def test_environment_rejects_invalid_nutrient_name_type(
+    invalid_name,
+) -> None:
+    with pytest.raises(TypeError):
+        Environment(
+            nutrients={invalid_name: 1.0}
+        )
+
+
+@pytest.mark.parametrize(
+    "invalid_name",
+    [
+        "",
+        " ",
+        "\t",
+        "\n",
+    ],
+)
+def test_environment_rejects_empty_nutrient_name(
+    invalid_name,
+) -> None:
+    with pytest.raises(ValueError):
+        Environment(
+            nutrients={invalid_name: 1.0}
+        )
+
+
+@pytest.mark.parametrize(
+    "invalid_concentration",
+    [
+        "10",
+        None,
+        True,
+        False,
+        [],
+        {},
+        (),
+    ],
+)
+def test_environment_rejects_invalid_nutrient_concentration_type(
+    invalid_concentration,
+) -> None:
+    with pytest.raises(TypeError):
+        Environment(
+            nutrients={"glucose": invalid_concentration}
+        )
+
+
+@pytest.mark.parametrize(
+    "invalid_concentration",
+    [
+        -0.1,
+        -1.0,
+        -100.0,
+    ],
+)
+def test_environment_rejects_negative_nutrient_concentration(
+    invalid_concentration,
+) -> None:
+    with pytest.raises(ValueError):
+        Environment(
+            nutrients={"glucose": invalid_concentration}
+        )

@@ -1,9 +1,9 @@
 from dataclasses import dataclass, field
 
 
-ABSOLUTE_ZERO_C = -273.15
-MIN_PH = 0.0
-MAX_PH = 14.0
+ABSOLUTE_ZERO_C: float = -273.15
+MIN_PH: float = 0.0
+MAX_PH: float = 14.0
 
 
 @dataclass(slots=True)
@@ -42,6 +42,7 @@ class Environment:
         ):
             raise TypeError("ph must be a number.")
 
+        # Modeling decision:
         # This simulation targets conventional microbiological culture media.
         # Therefore, pH values are restricted to the practical range
         # [0.0, 14.0]. This is a modeling decision rather than a universal
